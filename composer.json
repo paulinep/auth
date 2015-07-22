@@ -1,0 +1,26 @@
+{
+    "name": "pauline/auth",
+    "type": "module",
+    "description": "Registration and authorisation of users",
+    "keywords": ["boolive","package","widget","users", "registration"],
+    "homepage": "http://boolive.ru",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Polina Shestakova",
+            "email": "paulinep@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "boolive/core": "dev-master",
+        "boolive/basic": "dev-master",
+        "boolive/widgets": "dev-master",
+        "boolive/forms": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "../.."
+        }
+    }
+}
