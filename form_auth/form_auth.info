@@ -1,0 +1,12 @@
+{
+    "proto": "/vendor/boolive/basic/widget",
+    "file": "form_auth.tpl",
+    "order": 2,
+    "logic": true,
+    "properties":{
+        "path": "/sign-in"
+    },
+    "res": {
+            "proto": "/vendor/boolive/basic/widget/res"
+        }
+}
