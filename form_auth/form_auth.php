@@ -11,6 +11,7 @@
  class form_auth extends widget{
 
      private static $config;
+     private $_result = 1;
 
      function startRule(){
          return Rule::arrays([
@@ -30,7 +31,7 @@
              self::$config = Config::read('auth');
              $result = Data::find(array(
                      'from' => self::$config['users-list'],
-                     'select' => 'properties',
+                     'select' => 'children',
                      'depth' => 'max',
                      'where' => array(
                      ['child', 'email',
@@ -44,21 +45,26 @@
                      'limit' => array(0, 1),
                      'comment' => 'auth user by email and password',
                           ), false);
+             trace($result);
              if(!empty($result)){
                  $user = $result[0];
-             }
-             if($user){
-                 Auth::set_user($user);
+                Auth::set_user($user);
                 if($request['REQUEST']['remember-me']){
                     Auth::set_user($user, 1234565);
                  }
                 $request->redirect('profile');
             }else{
-                 $v['message'] = 'Такого пользователя не существует';
+                 $this->_result = 0;
                  return parent::work($request);
              }
          }else{
             return parent::work($request);
          }
+     }
+     function show($v, Request $request){
+         if($this->_result==0){
+            // $v['message'] = 'Такого пользователя не существует';
+         }
+        return parent::show($v, $request);
      }
  }

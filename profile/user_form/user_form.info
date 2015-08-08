@@ -1,0 +1,19 @@
+{
+    "proto": "/vendor/boolive/forms/form_auto",
+    "order": 0,
+    "properties": {
+        "views": {
+            "proto": "/vendor/boolive/forms/form_auto/views",
+            "order": 0
+        },
+        "res": {
+            "proto": "/vendor/boolive/basic/controller_group"
+        },
+        "description": {
+            "proto": "/vendor/boolive/forms/form_auto/description"
+        },
+        "title": {
+            "proto": "/vendor/boolive/forms/form_auto/title"
+        }
+    }
+}

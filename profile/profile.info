@@ -1,0 +1,9 @@
+{
+   "proto": "/vendor/boolive/basic/widget",
+        "file": "profile.tpl",
+        "order": 2,
+        "logic": true,
+        "properties":{
+            "path": "/profile"
+        }
+}
