@@ -6,7 +6,7 @@
  * @date 06.08.2015
  * @author Polina Shestakova <paulinep@yandex.ru>
  */
-namespace pauline\auth\profile\user_form\views\field;
+namespace pauline\auth\form_components\field;
 
 use boolive\core\values\Rule;
 

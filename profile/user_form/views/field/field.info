@@ -1,4 +1,4 @@
 {
-    "proto": "/vendor/boolive/forms/form_auto/views/field",
-    "logic": true
+    "proto": "/vendor/pauline/auth/form_components/field",
+    "is_link": true
 }
