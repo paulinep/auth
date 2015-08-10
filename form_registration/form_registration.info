@@ -1,6 +1,7 @@
 {
     "proto": "/vendor/boolive/forms/form_auto",
     "order": 0,
+    "logic": true,
     "properties": {
         "views": {
             "proto": "/vendor/boolive/forms/form_auto/views",

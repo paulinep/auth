@@ -17,4 +17,5 @@
       </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+     <button class="btn btn-lg btn-primary btn-block" type="button">Зарегистрироваться</button>
   </form>
