@@ -18,7 +18,7 @@
          return Rule::arrays([
              'REQUEST' => Rule::arrays([
                 'form' => Rule::eq($this->uri())->default(false)->required(),
-                 'email' => Rule::string()->default(false)->required(),
+                 'email' => Rule::email()->default(false)->required(),
                  'password' => Rule::string()->default(false)->required(),
                  'remember-me'=>Rule::bool()->default(false)->required(),
                  'path' => Rule::regexp('/^'.preg_quote($this->path->value(),'/').'($|\/)/ui')->required()

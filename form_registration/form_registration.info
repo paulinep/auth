@@ -4,9 +4,9 @@
     "order": 0,
     "logic": true,
     "properties":{
-        "path": "/registration"
-    },
-    "res": {
+        "path": "/registration",
+        "res": {
             "proto": "/vendor/boolive/basic/widget/res"
         }
+    }
 }

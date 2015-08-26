@@ -4,9 +4,9 @@
     "order": 2,
     "logic": true,
     "properties":{
-        "path": "/sign-in"
-    },
-    "res": {
+        "path": "/sign-in",
+        "res": {
             "proto": "/vendor/boolive/basic/widget/res"
         }
+    }
 }
