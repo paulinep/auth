@@ -1,0 +1,6 @@
+{
+    "proto" : "/vendor/boolive/basic/widget",
+    "file": "confirm.tpl",
+    "logic": true,
+    "order": 1
+}
