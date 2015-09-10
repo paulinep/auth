@@ -80,8 +80,9 @@ class confirm extends widget
             if($request['REQUEST']['sendAgain']){
                 $user = $this->searchUser($request['REQUEST']['confirm']);
                 if($user){
-                    $request['REQUEST'] = array('to'=>$user->email->value(), 'subject' => 'Подтвержление регистрации на healthcabinet.ru', 'message'=>'Здравствйте, вы зарегистрировались на healthcabinet.ru, для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="profile?confirm='.$user->confirm->value().'">ссылке</a>');
-                    $this->sendAgain($request);
+                    $this->sendAgain($to=$user->email->value(),
+                            $subject = 'Подтвержление регистрации на healthcabinet.ru',
+                            $message='Здравствйте, вы зарегистрировались на healthcabinet.ru, для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="profile?confirm='.$user->confirm->value().'">ссылке</a>');
                 }
             }
             $result = $this->confirmUser($request['REQUEST']['confirm']);
@@ -115,9 +116,9 @@ class confirm extends widget
     }
 
 
-    private function sendAgain($request){
+    private function sendAgain($to, $subject, $message){
 
-        return $this->mailSender->start($request);
+        return $this->mailSender->sendMail($to, $subject, $message);
 
     }
 

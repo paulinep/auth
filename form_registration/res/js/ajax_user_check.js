@@ -4,10 +4,10 @@
 $(function(){
     var message='';
     var form = $('form.form-signin');
+    var result = 0;
 
     //выводит сообщение
     function setMessage(message){
-        console.log($("div.alert").length);
         if(message.length>0){
             if($("div.alert").length==0){
                 $(".form-signin-heading").after("<div class='alert alert-danger'>"+message+"</div>");
@@ -26,7 +26,8 @@ $(function(){
             data: { call: "check", form: $('input[name="form"]').attr('value'),  email: this.value },
             dataType: "json"
         }).done(function(data) {
-            switch (data.result){
+            result = data.result;
+            switch (result){
                 case 1:
                  message='';
                     setMessage(message);
@@ -61,6 +62,8 @@ $(function(){
             setMessage(message);
             return;
         }
+        $('input#inputEmail').trigger('blur');
+        console.log(result);
 
     });
 

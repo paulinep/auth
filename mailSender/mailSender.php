@@ -8,31 +8,11 @@
  */
 namespace pauline\auth\mailSender;
 
-use boolive\basic\controller\controller;
-use boolive\core\request\Request;
-use boolive\core\values\Rule;
+use boolive\core\data\Entity;
 
-class mailSender extends controller
+class mailSender extends Entity
 {
-    function startRule(){
-        return Rule::arrays([
-              'REQUEST' => Rule::arrays([
-                  'to'=>Rule::email()->required(),
-                  'subject'=>Rule::string()->required(),
-                  'message'=>Rule::string()->required()
-              ])
-        ]);
-    }
 
-    function work(Request $request){
-        $result = $this->sendMail($request['REQUEST']['to'],$request['REQUEST']['subject'], $request['REQUEST']['message'] );
-        if($result){
-            $message =  "На указанный адрес электронной почты выслано письмо, пожалуйста прочтите его";
-        }else{
-            $message = false;
-        }
-        return $message;
-    }
 
     /**
      * Функция отправки письма новому пользователю для проверки валидности адреса электронной почты
@@ -43,11 +23,9 @@ class mailSender extends controller
      * @param $message string текст письма
      * @return bool
      */
-    private function SendMail($to, $subject, $message)
+    public  function sendMail($to, $subject, $message)
     {
-        $send = false;
         $mail = new \SimpleMail();
-        if($this->_result==0){
             $mail->setTo($to,'')
                 ->setSubject($subject)
                 ->setFrom('no-reply@healthcabinet.ru', 'Команда healthcabinet')
@@ -57,7 +35,6 @@ class mailSender extends controller
                 ->setWrap(1000);
                 $send = $mail->send();
 
-        }
         return $send;
 
     }
