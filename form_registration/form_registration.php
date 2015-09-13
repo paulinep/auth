@@ -20,7 +20,6 @@ class form_registration extends widget
 {
 
     private $_result = 0;//0-Пользователя нет, 1- Успешная регистрация 2- уже есть пользователь с таким email, 3- неизвестная ошибка 4- пользователь есть и подтвержден, 5- Пользователь уже существует, но не активен
-    private $domain = "www.healthcabinet.ru";
 
     function startRule()
        {
@@ -94,8 +93,8 @@ class form_registration extends widget
                                 //Теперь у нас есть такой пользователь
                                 $this->_result = 5;
                                 $this->mailSender->sendMail($to=$user->email->value(),
-                                        $subject= 'Подтвержление регистрации на healthcabinet.ru',
-                                        $message= 'Здравствйте, вы зарегистрировались на healthcabinet.ru, для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="profile?confirm='.$user->confirm->value().'">ссылке</a>');
+                                        $subject= 'Подтвержление регистрации на '.$this->mailSender->domain->value(),
+                                        $message= 'Здравствйте, вы зарегистрировались на '.$this->mailSender->domain->value().' , для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="'.$this->mailSender->domain->value().'/profile?confirm='.$user->confirm->value().'">ссылке</a>');
                                 $request->redirect('profile');
                             }
 

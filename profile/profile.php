@@ -36,7 +36,7 @@ class profile extends widget{
 
     function show($v, Request $request)
     {
-
+        $v['confirm'] = $this->confirm->start($request);
         $v['user_form'] = $this->user_form->start($request);
         return parent::show($v, $request);
     }

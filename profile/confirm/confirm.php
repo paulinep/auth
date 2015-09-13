@@ -81,8 +81,8 @@ class confirm extends widget
                 $user = $this->searchUser($request['REQUEST']['confirm']);
                 if($user){
                     $this->sendAgain($to=$user->email->value(),
-                            $subject = 'Подтвержление регистрации на healthcabinet.ru',
-                            $message='Здравствйте, вы зарегистрировались на healthcabinet.ru, для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="profile?confirm='.$user->confirm->value().'">ссылке</a>');
+                            $subject = 'Подтвержление регистрации на '.$this->mailSender->domain->value(),
+                            $message='Здравствйте, вы зарегистрировались на '.$this->mailSender->domain->value().', для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="'.$this->mailSender->domain->value().'/profile?confirm='.$user->confirm->value().'">ссылке</a>');
                 }
             }
             $result = $this->confirmUser($request['REQUEST']['confirm']);

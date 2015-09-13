@@ -1,4 +1,7 @@
 {
     "proto": "/vendor/boolive/basic/object",
-    "logic" : true
+    "logic" : true,
+    "properties":{
+        "domain": "www.healthcabinet.ru"
+    }
 }
