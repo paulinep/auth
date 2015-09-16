@@ -95,7 +95,7 @@ class form_registration extends widget
                                 $this->mailSender->sendMail($to=$user->email->value(),
                                         $subject= 'Подтвержление регистрации на '.$this->mailSender->domain->value(),
                                         $message= 'Здравствйте, вы зарегистрировались на '.$this->mailSender->domain->value().' , для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="'.$this->mailSender->domain->value().'/profile?confirm='.$user->confirm->value().'">ссылке</a>');
-                                $request->redirect('profile');
+                                $request->redirect('profile?confirm=0');
                             }
 
                         }

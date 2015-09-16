@@ -6,8 +6,9 @@
  * @date 30.08.2015
  * @author Polina Shestakova <paulinep@yandex.ru>
  */
-namespace pauline\auth\confirm;
+namespace pauline\auth\profile\confirm;
 
+use boolive\basic\user\user;
 use boolive\basic\widget\widget;
 use boolive\core\config\Config;
 use boolive\core\data\Data;
@@ -24,7 +25,7 @@ class confirm extends widget
         return Rule::arrays([
                 'REQUEST'=>Rule::arrays([
                             'confirm'=>Rule::string()->default(false)->required(),
-                            'sendAgain'=>Rule::email()->default(false),
+                            'sendAgain'=>Rule::email()->default(false)->required(),
                             'object'=>Rule::entity()->default(false)
                         ])
         ]);
@@ -60,33 +61,41 @@ class confirm extends widget
      * @return integer результат операции, обработка результата в функции work
     */
     private  function confirmUser($confirm){
+        /** @var user $user */
         $user =  $this->searchUser($confirm);
-        if($user && !$user->confirm->is_draft){
-            $user->confirm->is_draft;
+        if($user && !$user->confirm->is_draft()){
+            $user->confirm->is_draft(true);
+            Data::write($user->confirm);
             //Успешное подтверждение
             $result = 1;
         }else{
-            if($user && $user->confirm->is_draft){
+            //Пользователь уже существует
+            if($user && $user->confirm->is_draft()){
                $result = 4;
+            }else{
+                //Нет пользователя с таким значением - неизвестно почему
+                $result = 3;
             }
-            //Нет пользователя с таким значением - неизвестно почему
-            $result = 3;
         }
         return $result;
     }
 
     function work(Request $request){
+        $v = array();
         if($request['REQUEST']['confirm']){
             if($request['REQUEST']['sendAgain']){
                 $user = $this->searchUser($request['REQUEST']['confirm']);
                 if($user){
-                    $this->sendAgain($to=$user->email->value(),
+                   $mail =  $this->sendAgain($to=$user->email->value(),
                             $subject = 'Подтвержление регистрации на '.$this->mailSender->domain->value(),
                             $message='Здравствйте, вы зарегистрировались на '.$this->mailSender->domain->value().', для подтверждения актуальности электронного адреса, перейдите, пожалуйста по <a href="'.$this->mailSender->domain->value().'/profile?confirm='.$user->confirm->value().'">ссылке</a>');
+                    if($mail){
+                        $v['message'] = "Письмо успешно отправлено";
+
+                    }
                 }
             }
             $result = $this->confirmUser($request['REQUEST']['confirm']);
-            $v = array();
             switch($result){
                 case 1:
                 $v['message'] = "Успешное подтверждение адреса";
@@ -99,8 +108,7 @@ class confirm extends widget
             //Если профиль передал этому виджету уже пользователя, а не пользователь пришел по ссылке
           if($request['REQUEST']['object']){
               $user = $request['REQUEST']['object'];
-              if(!$user->confirm->is_draft){
-                  $v = array();
+              if(!$user->confirm->is_draft()){
                   $v['message'] = "Вам выслано письмо на адрес".$user->email->value()." перейдите по указанной в письме ссылке, чтобы подтвердить email, если письмо не пришло  нажмите <a href='profile?confirm=".$user->confirm->value()."&sendAgain=".$user->email->value()."'>сюда</a>";
                   return $this->show($v, $request);
               }else{

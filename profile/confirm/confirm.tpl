@@ -1,1 +1,1 @@
-<div class='alert alert-warning'>"<?=$v['message']?></div>
+<div class='alert alert-warning'><?=$v['message']->string()?></div>
