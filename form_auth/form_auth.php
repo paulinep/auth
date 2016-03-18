@@ -49,7 +49,7 @@
                      ),
                      'key' => false,
                      'limit' => array(0, 1),
-                     'comment' => 'auth user by email and password',
+                     'comment' => 'sign-in user by email and password',
                           ), false);
              if(!empty($result)){
                  $user = $result[0];
@@ -57,7 +57,8 @@
                  if($request['REQUEST']['remember-me']){
                     Auth::set_user($user, 1234565);
                  }
-                 $request->redirect('profile');
+
+                 $request->redirect(self::$config['redirect']);
                 }else{
                      $this->_result = 0;
                  }
@@ -90,6 +91,13 @@
          if($this->_result==0){
              $v['message'] = 'Такого пользователя не существует';
          }
+         self::$config = Config::read('auth');
+         if( self::$config['registration']){
+             $v['registration'] = '<a class="btn btn-lg btn-primary btn-block" href="registration" type="button">Зарегистрироваться</a>';
+         }else{
+             $v['registration'] = '';
+         }
+
         return parent::show($v, $request);
      }
 
